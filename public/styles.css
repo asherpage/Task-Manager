@@ -349,3 +349,12 @@ h5 + h5 {
   width: 600px;
   text-align: center;
 }
+.divy {
+  margin-left: 2vw;
+  margin-right: 2vw;
+  width: 9vw;
+}
+.red-background {
+  text-decoration: line-through;
+  color: red;
+}

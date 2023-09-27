@@ -19,7 +19,7 @@ const createPeople = (req, res)=>{
 }
 const updatePeople = (req, res) => {
     const { id } = req.params;
-    const { name } = req.body;
+    const {name, description} = req.body
     const person = people.find((person) => person.id === Number(id));
     if (!person) {
       return express.json({ success: false, data: [] });
@@ -28,6 +28,7 @@ const updatePeople = (req, res) => {
     const newPeople = people.map((person) => {
       if (person.id === Number(id)) {
         person.name = name;
+        person.description = description;
       }
       return person;
     });
