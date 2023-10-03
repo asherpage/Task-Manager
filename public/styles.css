@@ -352,12 +352,15 @@ h5 + h5 {
 }
 .divy {
   margin: 2vw 2vw 2vw 2vw;
+  text-align: center;
   width: 15vw;
   border-radius: .5rem;
   background-color: white;
+  box-shadow: 6px 6px 5px rgb(138, 138, 138);
   padding: 2vw 2vw 2vw 2vw;
   max-height: 20vw;
   height: 20vw;
+  transition: 0.2s;
 
   }
 
@@ -366,5 +369,15 @@ h5 + h5 {
 }
 .red-background {
   text-decoration: line-through;
-  color: red;
+  color: rgb(0, 0, 0);
+  background-color: #f0f0f0;
+  transition: 0.2s;
+}
+.edit{
+  width: 11vw;
+  margin: 0 0 0 0;
+}
+.del{
+  width: 11vw;
+  margin: 0 0 0 0;
 }
