@@ -10,21 +10,26 @@
 <body>
     <nav>
         <div class="nav-center">
-            <h5>HTTP Mehtods</h5>
+            <h5>HTTP Methods</h5>
             <div>
-                <a href="index.html">Regular</a>
-                <a href="javascript.html">JS</a>
+                <a href="javascript.html">Task</a>
+                <a href="people.html">People</a>
+                <a href="all.html">All</a>
             </div>
         </div>
     </nav>
     <main>
         <form action="/login" method="POST">
-            <h3>Traditional form</h3>
+            <h3>Traditional Form</h3>
             <div class="form-row">
-                <label form="name">Enter Name:</label>
-                <input type="text" name="name" id="name" autocomple="false">
+                <label for="name">Enter Name:</label>
+                <input type="text" name="name" id="name" autocomplete="false">
             </div>
-            <button type="submit" class="block"></button>
+            <div class="form-row">
+                <label for="description">Enter 1Description:</label>
+                <input type="text" name="description" id="description" autocomplete="false">
+            </div>
+            <button type="submit" class="block">Submit</button>
         </form>
     </main>
 </body>

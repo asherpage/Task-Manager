@@ -1,17 +1,24 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const personSchema = new mongoose.Schema({
+const PersonSchema = new mongoose.Schema({
     name:{
-        type:String,
-        required:[true, `Must provide a name`],
-        trim:true,
-        maxLength:[20,"the name can exceed 20 characters"]
+        type: String,
+        required: [true, 'Must provide a name'],
+        trim: true,
+    },
+    task:{
+        type: String,
+        trim: true,
+        default: 'none'
     },
     age:{
-        type:Number,
-        default:5
+        type: Number,
+        default: 10
+    },
+    userID:{
+        type: Number,
+        default: 0
     }
-})
+},{collection: 'People'})
 
-modules.exports = mongoose.model('Person', personSchema)
-mongoose.model.find({complete:true})
+module.exports = mongoose.model('Person', PersonSchema);

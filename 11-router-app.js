@@ -1,29 +1,37 @@
-const express = require("express");
-// require('dotenv').config();
-// require('./db/connect');
+const express = require('express');
 const app = express();
+const morgan = require('morgan');
+require('dotenv').config();
+require('./db/connect');
 
 const people = require('./routes/people-controller');
+const task = require('./routes/task-controller');
 const auth = require('./routes/auth');
-// const connectDB = require('./db/connect');
+const connectDB = require('./db/connect');
 
-app.use(express.static('./public'))
-app.use(express.urlencoded({ extended:false}))
-app.use(express.json())
-app.use('/api/people',people)
-app.use('/Login',auth)
+// static assets
+app.use(express.static('./public'));
+// parse from data
+app.use(express.urlencoded({ extended: false }));
+// parse JSON data
+app.use(express.json());
 
-const initServer = async () =>{
-  try{
-    // await connectDB(process.env.MONGO_URI)
-    app.listen(7000, () =>{
-      console.log('listening on port 7000')
-    })
-  }catch (error){
-    console.log(error)
-  }
+// routes/router
+app.use('/api/task', task);
+app.use('/api/people', people);
+// app.use('/api/people', people);
+app.use('/login', auth);
+
+// Server Listen
+const initServer = async()=>{
+    try{
+        await connectDB(process.env.MONGO_URI);
+        app.listen(5000, ()=>{
+            console.log('Server listening on port 5000')
+        });
+    }catch(e){
+        console.log(e);
+    }
 }
 
-initServer()
-
-  
+initServer();

@@ -1,50 +1,70 @@
-let {people} = require('../data')
+// let {people} = require('../data');
+const People = require('../models/person');
 
-const readPeople = (req, res) =>{
-    res.json({success: true, data: people})
-
-}
-let length = people.length+1
-const createPeople = (req, res)=>{
-    console.log(req.body)
-    const {name} = req.body
-    if (!name){
-      return res.status(404).json({success:false, msg:"put name"})
-
+// get function for all people
+const readPeople = async(req,res)=>{
+    // res.json({success:true, data:people});
+    try {
+        let people = await People.find({});
+        // console.log(answer);
+        res.json(people);
+    } catch (error) {
+        console.log(error)
     }
-    let person = {id: length++, name:name}
-    people.push(person)
-    res.status(201).json({success: true, data: [people]})
-
-}
-const updatePeople = (req, res) => {
-    const { id } = req.params;
-    const {name, description} = req.body
-    const person = people.find((person) => person.id === Number(id));
-    if (!person) {
-      return express.json({ success: false, data: [] });
-    }
-
-    const newPeople = people.map((person) => {
-      if (person.id === Number(id)) {
-        person.name = name;
-        person.description = description;
-      }
-      return person;
-    });
-    res.status(202).json({ data: newPeople, success: true });
-  };
-const deletePerson = (req, res) => {
-    const {id} = req.params;
-    const person = people.find((person) => person.id === Number(id))
-
-    if(!person){
-        return res.status(404).json({success:false, msg:"No matching id"})
-    }
-    people = people.filter((person) =>{
-        return person.id !== Number(id)
-    })
-    res.status(202).json({data:people, success:true})
 }
 
-module.exports = {readPeople, createPeople, updatePeople, deletePerson}
+// post function for creating people
+const createPeople = async(req,res)=>{
+    try {
+        let allPeople = await People.find({});
+        let {name, age, task} = req.body;
+
+        if(task == ''){
+            task = 'none';
+        }
+
+        let newPerson = await People.create({name:name, age:age, userID:allPeople.length+1, task:task});
+        allPeople = await People.find({});
+        res.json(allPeople);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// put function for update people
+const updatePeople = async(req,res)=>{
+    try {
+        let {userID} = req.params;
+        let {name, age, task} = req.body;
+        let changePerson = People.findById(userID)
+
+        if(!name){
+            name = changePerson.name;
+        }
+        if(!task){
+            task = changePerson.task;
+        }
+        if(!age){
+            age = changePerson.age;
+        }
+
+        let people = await People.findOneAndUpdate({userID:userID}, {name:name, task:task, age:age});
+        res.json(people);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// delete function for delete people
+const deletePeople = async(req,res)=>{
+    try {
+        const {userID} = req.params;
+        let person = await People.findOneAndDelete({userID:userID});
+        res.json(person);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = {readPeople, createPeople, updatePeople, deletePeople};

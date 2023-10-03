@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400|Inconsolata:400');
 *,
 ::after,
 ::before {
@@ -121,6 +121,95 @@ h4 {
 
 h5 {
   font-size: 1.25rem;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+
+.data{
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  margin-bottom: 1rem;
+}
+
+.list{
+  display: flex;
+  flex-direction: column;
+}
+
+.padding{
+  padding: 2rem;
+}
+
+.allRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.content{
+  background: var(--white);
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.completed{
+  text-decoration: line-through;
+  opacity: .7;
+  color: #5e5e5e;
+}
+
+.completedForm{
+  background-color: #aaaaaa;
+}
+
+.centerForm {
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  box-shadow: var(--shadow-2);
+  padding: 2rem 2.5rem;
+  display: flex;
+  justify-content: center;
+  font-size: 200%;
+}
+
+.marginGone{
+  margin: 0rem;
+}
+
+.finish{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.taskAll{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-items: flex-start;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+}
+
+.results{
+  margin-left: 1rem;
+  margin-bottom: 2rem;
 }
 
 small,
@@ -302,7 +391,7 @@ form {
   width: 90vw;
   max-width: 600px;
   margin: 0 auto;
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 nav {
   height: 4rem;
@@ -335,8 +424,7 @@ nav {
 
 .result {
   margin-top: 2rem;
-  display:flex;
-  flex-wrap: wrap;
+  display: flex;
   justify-content: center;
 }
 h5 + h5 {
@@ -350,34 +438,6 @@ h5 + h5 {
   width: 600px;
   text-align: center;
 }
-.divy {
-  margin: 2vw 2vw 2vw 2vw;
-  text-align: center;
-  width: 15vw;
-  border-radius: .5rem;
-  background-color: white;
-  box-shadow: 6px 6px 5px rgb(138, 138, 138);
-  padding: 2vw 2vw 2vw 2vw;
-  max-height: 20vw;
-  height: 20vw;
-  transition: 0.2s;
-
-  }
-
-.divy h3{
-  max-width: 10vw;
-}
-.red-background {
-  text-decoration: line-through;
-  color: rgb(0, 0, 0);
-  background-color: #f0f0f0;
-  transition: 0.2s;
-}
-.edit{
-  width: 11vw;
-  margin: 0 0 0 0;
-}
-.del{
-  width: 11vw;
-  margin: 0 0 0 0;
+.editLink{
+  color: white;
 }

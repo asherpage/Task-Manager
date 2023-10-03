@@ -1,47 +1,71 @@
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
 
-let {people} = require('../data');
-router.get('/', (req, res)=>{
-    res.json({success:true, data:people})
+// Below here is to work with the router application
+
+let People = require('../models/person');
+
+router.get('/', async(req,res)=>{
+    try {
+        let people = await People.find({});
+        res.json(people);
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+router.post('/', async(req,res)=>{
+    try {
+        let allPeople = await People.find({});
+        const {name, age, task} = req.body;
+
+        if(!task){
+            task = 'none';
+        }
+
+        let newPerson = await People.create({name:name, age:age, task:task, userID:allPeople.length+1});
+        allPeople = await People.find({});
+        res.json(allPeople);
+
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+// put request
+router.put('/:userID', async(req,res)=>{
+    try {
+        let {userID} = req.params;
+        let {name, age, task} = req.body;
+        let changePeople = People.findById(userID)
+
+        if(!name){
+            name = changePeople.name;
+        }
+        if(!age){
+            age = changePeople.age;
+        }
+        if(!task){
+            task = changePeople.task;
+        }
+
+        let people = await People.findOneAndUpdate({userID:userID}, {name:name, age:age, task:task});
+        res.json(people);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-router.post('/',(req,res)=>{
-    console.log(req.body)
-    const {name} = req.body
-    if(name){
-        return res.status(200).json({success:true, person: name})
+// delete request
+router.delete('/:userID', async(req, res)=>{
+    try {
+        const {userID} = req.params;
+        let person = await People.findOneAndDelete({userID:userID});
+        res.json(person);
+    } catch (error) {
+        console.log(error);
     }
-    res.status(404).json({success:false, msg:"provide name"})
-})
-router.put("/:id", (req, res) => {
-    const { id } = req.params;
-    const { name } = req.body;
-    const person = people.find((person) => person.id === Number(id));
-    if (!person) {
-      return express.json({ success: false, data: [] });
-    }
-    const newPeople = people.map((person) => {
-      if (person.id === Number(id)) {
-        person.name = name;
-      }
-      return person;
-    });
-    res.status(202).json({ data: newPeople, success: true });
-  });
-
-  router.delete("/:id", (req, res) => {
-    const {id} = req.params;
-    const person = people.find((person) => person.id === Number(id))
-
-    if(!person){
-        return res.status(404).json({success:false, msg:"No matching id"})
-    }
-    people = people.filter((person) =>{
-        return person.id !== Number(id)
-    })
-    res.status(202).json({data:people, success:true})
-})
+});
 
 
-module.exports = router
+module.exports = router;
