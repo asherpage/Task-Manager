@@ -132,7 +132,6 @@ h5 {
 
 
 .data{
-  width: 100%;
   background: var(--white);
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-2);
@@ -440,4 +439,7 @@ h5 + h5 {
 }
 .editLink{
   color: white;
+}
+.customs{
+  background-color: #0f5132;
 }
